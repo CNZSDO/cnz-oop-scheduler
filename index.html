@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CNZ Invitations – Order of Play (v1.0 external)</title>
+  <style>
+    body{font:15px/1.5 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:24px;color:#222}
+    h1{font-size:1.26rem;margin:0 0 12px}
+    .row{display:flex;gap:16px;flex-wrap:wrap}
+    fieldset{border:1px solid #ddd;padding:12px;border-radius:6px;min-width:320px}
+    legend{padding:0 6px;color:#333}
+    label{display:block;margin:6px 0}
+    select,input{font:inherit}
+    .seeds{display:grid;grid-template-columns:repeat(5,44px);gap:6px}
+    .seed{background:#f6f7f8;border:1px solid #ddd;border-radius:4px;text-align:center;padding:8px 0;cursor:grab;user-select:none}
+    .btn{background:#005bbb;color:#fff;padding:10px 14px;border:none;border-radius:6px;cursor:pointer;font-weight:600}
+    .btn.secondary{background:#eee;color:#222;border:1px solid #ccc}
+    .small{font-size:.9rem;color:#555}
+    table{border-collapse:collapse;width:100%;margin-top:12px}
+    th,td{border:1px solid #e1e1e1;padding:8px;text-align:center}
+    .export{margin-top:14px;padding:10px;border:1px solid #d0e3ff;background:#f6fbff;border-radius:6px}
+    textarea{width:100%;min-height:160px;font-family:ui-monospace,Consolas,monospace;font-size:.9rem}
+    .hint{color:#444;font-size:.9rem}
+    .linkbtn{display:inline-block;margin-top:8px;padding:8px 12px;border-radius:6px;border:1px solid #ccc;background:#fafafa;color:#005;text-decoration:none}
+    .debug{background:#fff7d6;border:1px solid #f0d76b;padding:6px 8px;border-radius:6px;margin-top:8px;font-family:ui-monospace,Consolas,monospace;font-size:.9rem}
+    @media print{ .no-print{display:none!important} body{margin:16px} }
+  </style>
+</head>
+<body>
+<h1>Order of Play Scheduler</h1>
+<p class="small">Single seeded round robin for <strong>5–10 players</strong>. Modes: <em>Event Result</em> (default) or <em>Cusp</em> (Top‑4 / Top‑2). <strong>Hard‑locked last round:</strong> 1v2 (+ adjacent pairs where applicable). Round 1 is pinned (when feasible).</p>
+
+<div class="row">
+  <fieldset>
+    <legend>Setup</legend>
+    <label>Players
+      <select id="n">
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10" selected>10</option>
+      </select>
+    </label>
+    <label>Mode
+      <select id="mode">
+        <option value="event" selected>Event Result (default)</option>
+        <option value="cusp4">Cusp Focus (Top‑4)</option>
+        <option value="cusp2">Cusp Focus (Top‑2)</option>
+      </select>
+    </label>
+    <label class="small"><input id="settling" type="checkbox" checked> Settling Round 1 (avoid 1v3/4 early)</label>
+    <label class="small"><input id="avoidTop4" type="checkbox" checked> Avoid early Top‑4 collisions</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Seeds (drag to reorder)</legend>
+    <div id="seeds" class="seeds"></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px" class="no-print">
+      <button class="btn secondary" id="resetBtn" type="button">Reset Seeds</button>
+      <button class="btn" id="genBtn" type="button">Generate</button>
+      <button class="btn secondary" id="printBtn" type="button">Print / PDF</button>
+    </div>
+    <div class="small" style="margin-top:6px">Reset Seeds restores <em>1..N</em> based on Players.</div>
+  </fieldset>
+</div>
+
+<h2>Schedule</h2>
+<table id="schedule"><thead></thead><tbody></tbody></table>
+
+
+<div id="exportPanel" class="export no-print" style="display:none">
+  <h4>CSV</h4>
+  <textarea id="csvbox" spellcheck="false"></textarea>
+  <a class="linkbtn" id="downloadCsv" href="#">Download CSV</a>
+  <h4 style="margin-top:12px">TSV</h4>
+  <textarea id="tsvbox" spellcheck="false"></textarea>
+  <a class="linkbtn" id="downloadTsv" href="#">Download TSV</a>
+</div>
+
+<script src="oop_v1_clean.js"></script>
+</body>
+</html>
