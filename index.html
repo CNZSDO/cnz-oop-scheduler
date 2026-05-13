@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Order of Play Scheduler</title>
+<style>
+  body{font:15px system-ui;margin:20px;color:#222}
+  h1{margin-bottom:10px}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  label{font-size:0.9rem}
+  button{padding:6px 10px}
+  .seeds{display:grid;grid-template-columns:repeat(5,40px);gap:6px;margin:10px 0}
+  .seed{background:#f0f0f0;border:1px solid #ccc;text-align:center;padding:8px;cursor:grab}
+  table{border-collapse:collapse;width:100%;margin-top:10px}
+  th,td{border:1px solid #ddd;padding:6px;text-align:center}
+  .hint{font-size:0.85rem;color:#555;margin-top:6px}
+</style>
+</head>
+
+<body>
+<h1>Order of Play Scheduler (v1.1)</h1>
+
+<div class="controls">
+  <label>Players
+    <select id="n">
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10" selected>10</option>
+    </select>
+  </label>
+
+  <label>Mode
+    <select id="mode">
+      <option value="standard" selected>Standard</option>
+      <option value="cusp">Cusp (preview)</option>
+    </select>
+  </label>
+
+  <button id="resetBtn">Reset Seeds</button>
+  <button id="genBtn">Generate</button>
+  <button id="downloadBtn">Download Schedule (CSV)</button>
+</div>
+
+<div id="seeds" class="seeds"></div>
+
+<div class="hint">
+  Baseline: CNZ Yearbook‑aligned (non‑linear progression).  
+  Cusp modes shown for preview only.
+</div>
+
+<h3>Schedule</h3>
+<table id="schedule">
+  <thead></thead>
+  <tbody></tbody>
+</table>
+
+<script src="oop_v1_1.js"></script>
+</body>
+</html>
